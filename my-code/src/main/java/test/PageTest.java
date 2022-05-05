@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SearchTest {
+public class PageTest {
 	public static void main(String[] args) {
 		List<int[]> ints=(getPageIndex(2,30));
 		for (int i = 0; i < ints.size(); i++) {
