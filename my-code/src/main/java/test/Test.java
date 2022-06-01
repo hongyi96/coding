@@ -1,19 +1,40 @@
 package test;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.Calendar;
+import java.util.concurrent.CountDownLatch;
 
 public class Test {
     public static void main(String[] args) {
-        String s="%E8%BD%BB%E5%A5%A2%E5%8D%AB%E7%94%9F%E9%97%B4";
-        String s1="汉字";
+        CountDownLatch countDownLatch = new CountDownLatch(3);
+        long method = method(countDownLatch);
+        System.out.println(method);
+        method = errorMethod(countDownLatch);
+        System.out.println(method);
+    }
+
+    public static long method(CountDownLatch countDownLatch) {
+
         try {
-            System.out.println(URLDecoder.decode(s,"UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            countDownLatch.countDown();
+            return countDownLatch.getCount();
+        } catch (Exception e) {
+
         }
-        System.out.println(URLDecoder.decode(s1));
+        countDownLatch.countDown();
+        return countDownLatch.getCount();
+    }
+
+    public static long errorMethod(CountDownLatch countDownLatch) {
+
+        try {
+            int a = 1 / 0;
+            countDownLatch.countDown();
+            return countDownLatch.getCount();
+        } catch (Exception e) {
+
+        }
+        countDownLatch.countDown();
+        return countDownLatch.getCount();
     }
 
     public static long getSecondsNextEarlyMorning() {
